@@ -1,53 +1,33 @@
-
-import React, { useState }   from "react";
-import {Button, Flex, Text} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import HeaderToDo from "./components/headerToDO/HeaderToDo";
 import StatusToDO from "./components/StatusToDO/StatusToDO";
 import OneTask from "./components/OneTask/OneTask";
 
-
-
 function App() {
-
-  const [todoList,setTodoList] =useState([
-        {
-        id:1,
-        title:'Take 1',
-        isDone:false,
-        isImportant:false,
-    },
-        {
-            id:2,
-            title:'Take 2',
-            isDone:false,
-            isImportant:false,
-        },
-        {
-            id:3,
-            title:'Take 3',
-            isDone:false,
-            isImportant:false,
-        },
-        {
-            id:4,
-            title:'Take 4',
-            isDone:false,
-            isImportant:false,
-        },
-    ] )
-
-
-     
+  const [todoList, setTodoList] = useState([]);
+  const [status, setStatus] = useState("all");
   return (
-       <Flex flexDirection={'column'} p={2}>
-           <HeaderToDo setTodoList={setTodoList}/>
-           <StatusToDO/>
-           <Flex flexDirection={'column'} p={2}>
-               {todoList.map((item)=>(
-                  <OneTask setTodoList={setTodoList} item={item} key={item.id}/>
-               ))}
-           </Flex>
-       </Flex>
+    <Flex
+      flexDirection={"column"}
+      p={2}
+      justifyContent={"center"}
+      alignContent={"center"}
+      h={"100vh"}
+    >
+      <HeaderToDo setTodoList={setTodoList} />
+      <StatusToDO status={status} setStatus={setStatus} />
+      <Flex flexDirection={"column"} p={2} justifyContent={"center"}>
+        {todoList.map((item) => (
+          <OneTask
+            status={status}
+            setTodoList={setTodoList}
+            item={item}
+            key={item.id}
+          />
+        ))}
+      </Flex>
+    </Flex>
   );
 }
 
