@@ -18,12 +18,12 @@ function App() {
       <HeaderToDo setTodoList={setTodoList} todoList={todoList} />
       <StatusToDO status={status} setStatus={setStatus} />
       {status === "done" && !todoList.some((item) => item.isDone) ? (
-        <Text>Your didnt finished any task</Text>
+        <Text>Your didnt finish any task</Text>
       ) : status === "inProgress" && !todoList.some((item) => !item.isDone) ? (
         <Text>Your finished all task</Text>
       ) : status === "important" &&
         !todoList.some((item) => item.isImportant) ? (
-        <Text>U didnt have important task</Text>
+        <Text>U didn't have important task</Text>
       ) : status === "all" && !todoList.length ? (
         <Text>Task isnt exist</Text>
       ) : (
