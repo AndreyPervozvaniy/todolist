@@ -9,10 +9,18 @@ import {
 } from "@chakra-ui/react";
 import { GoPlus } from "react-icons/go";
 import { v4 as uuidv4 } from "uuid";
-const HeaderToDo = ({ setTodoList }) => {
-  const [task, setTask] = useState(" ");
+const HeaderToDo = ({ setTodoList, todoList }) => {
+  const [task, setTask] = useState("");
   const addTask = () => {
-    if (task.length >= 3) {
+    if (task.length < 3) {
+      alert("Task is to short");
+    } else if (
+      todoList.some(
+        (item) => item.title.trim().toLowerCase() === task.trim().toLowerCase()
+      )
+    ) {
+      alert("Task with this name is alredy exist");
+    } else {
       setTodoList((prev) => [
         ...prev,
         {
@@ -23,8 +31,6 @@ const HeaderToDo = ({ setTodoList }) => {
         },
       ]);
       setTask("");
-    } else {
-      alert("Task is too short!");
     }
   };
   return (
@@ -35,6 +41,11 @@ const HeaderToDo = ({ setTodoList }) => {
             rounded={"md"}
             w={"300px"}
             spacing={4}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                addTask();
+              }
+            }}
             type="text"
             placeholder="Add task..."
             border={"2px solid black"}

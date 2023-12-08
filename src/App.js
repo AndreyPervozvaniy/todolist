@@ -15,18 +15,41 @@ function App() {
       alignContent={"center"}
       h={"100vh"}
     >
-      <HeaderToDo setTodoList={setTodoList} />
+      <HeaderToDo setTodoList={setTodoList} todoList={todoList} />
       <StatusToDO status={status} setStatus={setStatus} />
-      <Flex flexDirection={"column"} p={2} justifyContent={"center"}>
-        {todoList.map((item) => (
-          <OneTask
-            status={status}
-            setTodoList={setTodoList}
-            item={item}
-            key={item.id}
-          />
-        ))}
-      </Flex>
+      {status === "done" && !todoList.some((item) => item.isDone) ? (
+        <Text>Your didnt finished any task</Text>
+      ) : status === "inProgress" && !todoList.some((item) => !item.isDone) ? (
+        <Text>Your finished all task</Text>
+      ) : status === "important" &&
+        !todoList.some((item) => item.isImportant) ? (
+        <Text>U didnt have important task</Text>
+      ) : status === "all" && !todoList.length ? (
+        <Text>Task isnt exist</Text>
+      ) : (
+        <Flex flexDirection={"column"} p={2} justifyContent={"center"}>
+          {todoList
+            .filter((item) => {
+              if (status === "done") {
+                return item.isDone;
+              } else if (status === "inProgress") {
+                return !item.isDone;
+              } else if (status === "important") {
+                return item.isImportant;
+              } else {
+                return true;
+              }
+            })
+            .map((item) => (
+              <OneTask
+                status={status}
+                setTodoList={setTodoList}
+                item={item}
+                key={item.id}
+              />
+            ))}
+        </Flex>
+      )}
     </Flex>
   );
 }
