@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { GoPlus } from "react-icons/go";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 const HeaderToDo = ({ setTodoList, todoList }) => {
   const [task, setTask] = useState("");
   const addTask = () => {
@@ -22,13 +23,14 @@ const HeaderToDo = ({ setTodoList, todoList }) => {
       alert("Task with this name is alredy exist");
     } else {
       setTodoList((prev) => [
-        ...prev,
         {
           id: uuidv4(),
           title: task,
           isDone: false,
           isImportant: false,
+          time: moment().format("MMMM Do YYYY, h:mm:ss a"),
         },
+        ...prev,
       ]);
       setTask("");
     }

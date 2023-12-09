@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { MdDone, MdWarning } from "react-icons/md";
 
-const OneTask = ({ item, setTodoList }) => {
+const OneTask = ({ item, setTodoList, time }) => {
   const doneTask = () => {
     setTodoList((prev) =>
       prev.map((el) => {
@@ -29,31 +29,39 @@ const OneTask = ({ item, setTodoList }) => {
   };
   return (
     <Flex justifyContent={"center"} p={2}>
+      {" "}
       <Text p={2}>{item.title}</Text>
       <Flex justifyContent={"flex-end"} w={"900px"} flex={1}>
         {" "}
-        {/* Use flex property instead of fixed width */}
-        <Button
-          style={{
-            background: item.isDone ? "green" : "transparent",
-            width: "80px",
-          }}
-          onClick={doneTask}
-        >
-          {item.isDone ? <MdDone /> : "Done"}
-        </Button>
-        <Button
-          style={{
-            background: item.isImportant ? "gold" : "transparent",
-            width: "100px",
-          }}
-          onClick={importantTask}
-        >
-          {item.isImportant ? <MdWarning /> : "Important"}
-        </Button>
-        <Button onClick={deleteTask} backgroundColor={"transparent"}>
-          Delete
-        </Button>
+        {time ? (
+          <Text p={2}>{item.time}</Text>
+        ) : (
+          <Flex justifyContent={"flex-end"} w={"900px"} flex={1}>
+            {" "}
+            {/* Use flex property instead of fixed width */}
+            <Button
+              style={{
+                background: item.isDone ? "green" : "transparent",
+                width: "80px",
+              }}
+              onClick={doneTask}
+            >
+              {item.isDone ? <MdDone /> : "Done"}
+            </Button>
+            <Button
+              style={{
+                background: item.isImportant ? "gold" : "transparent",
+                width: "100px",
+              }}
+              onClick={importantTask}
+            >
+              {item.isImportant ? <MdWarning /> : "Important"}
+            </Button>
+            <Button onClick={deleteTask} backgroundColor={"transparent"}>
+              Delete
+            </Button>
+          </Flex>
+        )}
       </Flex>
     </Flex>
   );
